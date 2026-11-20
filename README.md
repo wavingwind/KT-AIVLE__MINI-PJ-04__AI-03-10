@@ -1,2 +1,3 @@
 # KT-AIVLE__MINI-PJ-04__AI-03-10
-KT AIVLE 미프 04. AI트랙 03반 10조.
+KT AIVLE 미프 04. </br>
+AI트랙 03반 10조.
