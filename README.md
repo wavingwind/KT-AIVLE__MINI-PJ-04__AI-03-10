@@ -1,4 +1,5 @@
 # 1. 프로젝트명 : AIVLE 문고 (AIVLE Books)
+<br/>
 
 # 2. R&R
 | **이름** | **역할1** | **역할2** |
@@ -8,9 +9,11 @@
 | **남도현** | CRUD 연동| PPT 제작자 |
 | **남건우** | OpenAI 연동 | 검토 담당자 |
 | **이은수** | PM, 기획 | 서기 |
+<br/>
 
 # 3. 참조 목록
 (생략)
+<br/>
 
 # 4. 컴포넌트
 
@@ -26,6 +29,7 @@
 | **GenreSection** | `BookListPage` (`/`) | `CategoryHeader` + `BookCard` 리스트 | 남도현 |
 | **BookForm** | `BookCreatePage`,
 `BookEditPage` | 도서 등록/수정 입력 폼. 유효성 검사용 형식. | CRUD |
+<br/>
 
 # 5. API 명세서 & db.json
 
@@ -38,6 +42,7 @@
 | **BookDetailPage** | `/books/:id` | 도서 상세 조회 페이지 (AI 표지 생성/재생성 `PATCH`, 도서 삭제 `DELETE`) | CRUD, 
 OpenAI 연동 |
 | **BookEditPage** | `/books/:id/edit` | 기존 도서 정보 수정 페이지 (기존 데이터 로드 및 `PATCH /books/:id`) | CRUD |
+<br/>
 
 | **기능** | **Method** | **Endpoint** | **요청 데이터 (Body) / 비고** |
 | --- | --- | --- | --- |
