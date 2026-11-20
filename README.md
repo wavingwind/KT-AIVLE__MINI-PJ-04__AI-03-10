@@ -53,6 +53,7 @@ OpenAI 연동 |
 | **도서 삭제** | `DELETE` | `/books/{id}` | 없음 |
 | **AI 표지 이미지 생성** | `POST` | `/cover-gen` | `{ model: “gpt-image-…, prompt, … }` |
 | **좋아요 상태 변경** | `PATCH` | `/books/{id}` | `{ isLiked: boolean }` |
+<br/>
 
 # 6. To Do
 ## 6-1. 기본기능 (우선적으로 완성)
