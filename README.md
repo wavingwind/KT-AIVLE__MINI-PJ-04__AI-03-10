@@ -42,6 +42,7 @@
 | **BookDetailPage** | `/books/:id` | 도서 상세 조회 페이지 (AI 표지 생성/재생성 `PATCH`, 도서 삭제 `DELETE`) | CRUD, 
 OpenAI 연동 |
 | **BookEditPage** | `/books/:id/edit` | 기존 도서 정보 수정 페이지 (기존 데이터 로드 및 `PATCH /books/:id`) | CRUD |
+<br/>
 
 | **기능** | **Method** | **Endpoint** | **요청 데이터 (Body) / 비고** |
 | --- | --- | --- | --- |
