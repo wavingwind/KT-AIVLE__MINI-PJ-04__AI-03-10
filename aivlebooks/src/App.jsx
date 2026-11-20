@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
 import './App.css'
 
-// import Header from "./components/Header"
+import Header from "./components/Header"
 import Main from "./components/Main"
-// import Footer from "./components/Footer"
+import Footer from "./components/Footer"
+import Button from './components/Button'
+import Input from './components/Input'
 
 
 function App() {
@@ -33,9 +32,12 @@ function App() {
 
   return (
     <>
-      {/* <Header /> */}
+      <Header />
+      <h1 className="inverse-surface">가나다라</h1>
+      <Button />
+      <Input />
       <Main book_list={book_list}/>
-      {/* <Footer /> */}
+      <Footer />
     </>
   )
 }

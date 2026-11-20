@@ -1,6 +1,6 @@
-export default function Header({onHome,onCreate}){
+function Header({onHome,onCreate}){
     return (
-        <Header className="header">
+        <header className="px-4">
             <div className="header-innor">
                 <button className="home-button" tybe="button" onClick={onHome}>
                     aivlebooks
@@ -9,6 +9,7 @@ export default function Header({onHome,onCreate}){
                         도서등록
                     </button>
             </div>
-        </Header>
+        </header>
     )
 }
+export default Header
