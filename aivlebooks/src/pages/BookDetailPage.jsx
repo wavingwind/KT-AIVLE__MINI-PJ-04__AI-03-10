@@ -74,6 +74,7 @@ function BookDetailPage() {
                 <Header onHome={() => navigate("/")} onCreate={() => navigate("/books/new")} />
                 <main style={{ padding: "40px", textAlign: "center" }}>
                     <p>에러: {error || "해당 도서를 찾을 수 없습니다."}</p>
+                    {/* 목록 버튼은 일단 홈화면으로 보내게 해놨음. */}
                     <Button icon="📚" onClick={() => navigate("/")}>
                         목록으로 돌아가기
                     </Button>
