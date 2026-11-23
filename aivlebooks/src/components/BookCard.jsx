@@ -7,18 +7,29 @@
 // "updatedAt": "2024-06-01T10:00:00Z",
 // "category": "소설"
 
-function BookCard({ id, book }) {
-    return (
-        <>
-            <article >
-                <div className="w-[360px] h-[120px] p-4 bg-[#000] flex flex-col items-start justify-end">
-                    <h4>{book.title}</h4>
-                    <p>{book.author}</p>
-                </div>
+import { Link } from 'react-router-dom';
 
-            </article>
-        </>
-    )
+function BookCard({ id, book }) {
+  const bookId = book.id ?? id;
+
+  return (
+    <article className="book-card">
+      <Link className="book-card-link" to={`/books/${bookId}`}>
+        {book.coverImageUrl ? (
+          <img
+            className="book-card-cover"
+            src={book.coverImageUrl}
+            alt={`${book.title} 표지`}
+          />
+        ) : (
+          <p>표지 준비 중</p>
+        )}
+
+        <h4>{book.title}</h4>
+        <p>{book.content}</p>
+      </Link>
+    </article>
+  );
 }
 
-export default BookCard
+export default BookCard;
