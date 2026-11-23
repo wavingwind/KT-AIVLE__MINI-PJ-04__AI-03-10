@@ -51,16 +51,42 @@ function App() {
     }
   }
 
-  const handleModifyBook = async(id) => {
+  const handleModifyBook = async(id, modify) => {
+    try {
+      const res = await fetch(`http://localhost:3000/books/${id}`, {
+        method: "PATCH",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(modify)})
+      const updated = await res.json()
 
+       setBookList(prev => prev.map(book => (book.id === id ? updated : book)))
+
+    } catch(err) {
+      console.error(err)
+      alert("Fail Modify Book")
+    }
   }
 
   const handleViewDatails = async(id) => {
-
+    try {
+      const res = await fetch(`http://localhost:3000/books/${id}`)
+      return await res.json()
+    } catch (err) {
+      console.error(err)
+      alert("Fail Load Book")
+    }
   }
 
   const handleDeleteBook = async(id) => {
-    
+    try {
+      await fetch(`http://localhost:3000/books/${id}`, {
+        method: "DELETE"
+      })
+       setBookList( book_list.filter( (book) => book.id !== id))
+    } catch(err) {
+      console.error(err)
+      alert("Fail Delete Book")
+    }
   }
 
   if (loading) {
