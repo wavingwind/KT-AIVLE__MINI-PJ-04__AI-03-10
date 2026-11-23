@@ -88,7 +88,7 @@ function BookDetailPage() {
         <Header onHome={() => navigate("/")} onCreate={() => navigate("/books/new")} />
         <main style={{ maxWidth: "900px", margin: "40px auto", padding: "0 20px" }}>
             <div style={{ display: "flex", gap: "40px", alignItems: "flex-start" }}>
-            {/* 좌측: 도서 표지 이미지 영역 */}
+            {/* 왼쪽에 표지이미지 영역 */}
             <div style={{ flex: "0 0 300px" }}>
                 <img
                 src={book.coverImageUrl || "https://placehold.co/300x420?text=No+Cover"}
@@ -103,7 +103,7 @@ function BookDetailPage() {
                 />
             </div>
 
-            {/* 우측: 도서 상세 정보 및 버튼 영역 */}
+            {/* 오른쪽에 상세정보 영역 */}
             <div style={{ flex: 1 }}>
                 <span style={{ color: "#666", fontSize: "14px" }}>{book.category}</span>
                 <h2 style={{ margin: "8px 0 12px", fontSize: "28px" }}>{book.title}</h2>
@@ -126,20 +126,22 @@ function BookDetailPage() {
                 {book.content}
                 </div>
 
-                {/* 수정 / 삭제 / 목록 버튼 */}
+                {/* 수정, 삭제, 목록 버튼 */}
                 <div style={{ display: "flex", gap: "12px" }}>
+                {/* 수정버튼은 BookEditPage랑 연결 */}
                 <Button icon="✏️" onClick={() => navigate(`/books/${id}/edit`)}>
                     수정하기
                 </Button>
                 <Button icon="🗑️" onClick={handleDelete}>
                     삭제하기
                 </Button>
+                {/* 목록 버튼은 일단 홈화면으로 보내게 해놨음. */}
                 <Button icon="📚" onClick={() => navigate("/")}>
                     목록으로
                 </Button>
                 </div>
 
-                {/* 3일차에 건우님과 연결할 AI 표지 생성 구역 자리 */}
+                {/* AI 표지 재생성 버튼 추가해도 좋을듯 */}
                 <div
                 style={{
                     marginTop: "32px",
@@ -147,9 +149,9 @@ function BookDetailPage() {
                     borderTop: "1px solid #eee",
                 }}
                 >
-                <h4>AI 도서 표지 생성 (3일차 연동 예정)</h4>
+                <h4>AI 도서 표지 재생성</h4>
                 <p style={{ fontSize: "13px", color: "#777" }}>
-                    이 영역에 OpenAI API Key 입력창과 AI 표지 생성 버튼이 추가될 예정입니다.
+                    추가예정
                 </p>
                 </div>
             </div>
