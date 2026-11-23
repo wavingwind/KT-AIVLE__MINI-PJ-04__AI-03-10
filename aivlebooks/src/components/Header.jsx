@@ -24,11 +24,7 @@ function Header(){
                         to="/books/search"
                         aria-label="도서 검색"
                         title="도서 검색"
-                        className="
-                            flex h-[40px] w-[40px] items-center justify-center
-                            text-[#555] transition-colors duration-200
-                            hover:bg-[#f5f5f5] hover:text-[#28b5ad]
-                        "
+                        className="flex h-[40px] w-[40px] items-center justify-center text-[#555]"
                     >
                         <svg
                             width="21"

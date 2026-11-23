@@ -7,6 +7,7 @@ import Main from "./components/Main"
 import Footer from "./components/Footer"
 import Button from './components/Button'
 import Input from './components/Input'
+import Search from "./pages/Search";
 
 import BookDetailPage from "./pages/BookDetailPage"
 import BookCreatePage from "./pages/BookCreatePage";
@@ -148,6 +149,17 @@ function App() {
         <Route 
           path="/books/new" 
           element={<BookCreatePage onCreateBook={handleAddBook} />}
+        />
+
+        <Route
+          path="/books/search"
+          element={
+            <Search
+              books={book_list}
+              loading={loading}
+              error={error}
+            />
+          }
         />
       </Routes>
 
