@@ -2,58 +2,28 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import Button from "../components/Button";
 
-function BookDetailPage() {
+function BookDetailPage({onViewDetails, onDeleteBook}) {
     const { id } = useParams();
     const navigate = useNavigate();
+
 
     const [book, setBook] = useState(null);
     const [loading, setLoading] = useState(true); // 책 정보 로드중일때 대기화면
     const [error, setError] = useState("");
 
-    // 상세 정보 조회 (GET /books/:id)
     useEffect(() => {
-        async function fetchBookDetail() {
-            try {
-                setLoading(true);
-                const res = await fetch(`http://localhost:3000/books/${id}`);
-                if (!res.ok) {
-                    throw new Error("도서 정보를 불러오지 못했습니다.");
-                }
-                const data = await res.json();
-                setBook(data);
-            } catch (err) {
-                console.error(err);
-                setError(err.message || "데이터 조회 중 오류가 발생했습니다.");
-            } finally {
-                setLoading(false);
-            }
+        async function load() {
+            setLoading(true)
+            const data = await onViewDetails(id)
+            if (data) setBook(data)
+            else setError("도서 정보를 불러오지 못했습니다.")
+            setLoading(false)
         }
-
-        fetchBookDetail();
-    }, [id]);
-
-    // 도서 삭제 핸들러 (DELETE /books/:id)
-    const handleDelete = async () => {
-        const isConfirmed = window.confirm("정말로 이 도서를 삭제하시겠습니까?");
-        if (!isConfirmed) return;
-
-        try {
-            const res = await fetch(`http://localhost:3000/books/${id}`, {
-                method: "DELETE",
-            });
-            if (!res.ok) {
-                throw new Error("도서 삭제에 실패했습니다.");
-            }
-            alert("도서가 삭제되었습니다.");
-            navigate("/");
-        } catch (err) {
-            console.error(err);
-            alert("삭제 처리 중 오류가 발생했습니다.");
-        }
-    };
+        load()
+        }, [id])
 
     if (loading) {
-        return (
+    return (
             <main style={{ padding: "40px", textAlign: "center" }}>
                 <p>도서 정보를 불러오는 중...</p>
             </main>
@@ -118,7 +88,7 @@ function BookDetailPage() {
                         <Button icon="✏️" onClick={() => navigate(`/books/${id}/update`)}>
                             수정하기
                         </Button>
-                        <Button icon="🗑️" onClick={handleDelete}>
+                        <Button icon="🗑️" onClick={ () => onDeleteBook(id)}>
                             삭제하기
                         </Button>
                         {/* 목록 버튼은 일단 홈화면으로 보내게 해놨음. */}

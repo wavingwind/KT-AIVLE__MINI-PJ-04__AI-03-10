@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Routes, Route } from "react-router";
+import { Routes, Route, useNavigate } from "react-router";
 import './App.css'
 
 import Header from "./components/Header"
@@ -14,7 +14,8 @@ import BookDetailPage from "./pages/BookDetailPage"
 function App() {
   const [count, setCount] = useState(0)
   const [book_list, setBookList] = useState([])
-
+  
+  const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
 
@@ -73,6 +74,9 @@ function App() {
   const handleViewDetails = async (id) => {
     try {
       const res = await fetch(`http://localhost:3000/books/${id}`)
+      if (!res.ok) {
+        throw new Error("도서 정보를 불러오지 못했습니다.");
+      }
       return await res.json()
     } catch (err) {
       console.error(err)
@@ -81,11 +85,14 @@ function App() {
   }
 
   const handleDeleteBook = async (id) => {
+    const isConfirmed = window.confirm("정말로 이 도서를 삭제하시겠습니까?");
+    if (!isConfirmed) return;
     try {
       await fetch(`http://localhost:3000/books/${id}`, {
         method: "DELETE"
       })
       setBookList(book_list.filter((book) => book.id !== id))
+      navigate("/");
     } catch (err) {
       console.error(err)
       alert("Fail Delete Book")
@@ -126,7 +133,7 @@ function App() {
 
         <Route
           path="/books/:id"
-          element={<BookDetailPage />}
+          element={<BookDetailPage onViewDetails={handleViewDetails}  onDeleteBook={handleDeleteBook} />}
         />
 
         <Route
