@@ -85,7 +85,7 @@ function BookDetailPage({onViewDetails, onDeleteBook}) {
 
                     {/* 수정, 삭제, 목록 버튼 */}
                     <div style={{ display: "flex", gap: "12px" }}>
-                        <Button icon="✏️" onClick={() => navigate(`/books/${id}/update`)}>
+                        <Button icon="✏️" onClick={() => navigate("/books/new", { state: { book } })}>
                             수정하기
                         </Button>
                         <Button icon="🗑️" onClick={ () => onDeleteBook(id)}>
