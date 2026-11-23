@@ -9,7 +9,7 @@ function BookDetailPage() {
     const navigate = useNavigate();
 
     const [book, setBook] = useState(null);
-    const [loading, setLoading] = useState(true); // 책 정보 로드완료됐는지 표시
+    const [loading, setLoading] = useState(true); // 책 정보 로드중일때 대기화면
     const [error, setError] = useState("");
 
     // 상세 정보 조회 (GET /books/:id)
