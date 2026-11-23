@@ -145,9 +145,10 @@ function App() {
             </main>
           }
         />
+        {/* 추가 페이지가 수정도 할 수 있도록 업데이트 */}
         <Route 
           path="/books/new" 
-          element={<BookCreatePage onCreateBook={handleAddBook} />}
+          element={<BookCreatePage onCreateBook={handleAddBook} onModifyBook={handleModifyBook} />}
         />
       </Routes>
 
