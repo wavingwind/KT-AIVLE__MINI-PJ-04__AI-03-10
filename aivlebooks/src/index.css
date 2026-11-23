@@ -1,9 +1,10 @@
 @import "tailwindcss";
-
-
 @import url("https://fonts.googleapis.com/css2?family=Newsreader:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap");
 
-@import "tailwindcss";
+@theme {
+    --font-sans: "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+    --font-serif: "Nanum Myeongjo", Georgia, serif;
+}
 
 @theme {
     /* Colors */
@@ -169,7 +170,7 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --text: #9ca3af;
     --text-h: #f3f4f6;
@@ -187,7 +188,7 @@
   #social .button-icon {
     filter: invert(1) brightness(2);
   }
-}
+} */
 
 body {
   margin: 0;
@@ -198,7 +199,7 @@ body {
   max-width: 100%;
   margin: 0 auto;
   text-align: center;
-  border-inline: 1px solid var(--border);
+  /* border-inline: 1px solid var(--border); */
   min-height: 100svh;
   display: flex;
   flex-direction: column;
