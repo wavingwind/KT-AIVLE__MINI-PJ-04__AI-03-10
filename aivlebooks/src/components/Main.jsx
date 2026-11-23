@@ -9,6 +9,7 @@ function Main({book_list}) {
     const humanities_books = book_list.filter(book => book.category === "인문")
     const history_books = book_list.filter(book => book.category === "역사")
     const art_books = book_list.filter(book => book.category === "예술")
+    const etc_books = book_list.filter(book => book.category === "기타");
     
     return (
         <main>
@@ -17,6 +18,7 @@ function Main({book_list}) {
             <GenreSection genre="인문" books={humanities_books}/>
             <GenreSection genre="역사" books={history_books}/>
             <GenreSection genre="예술" books={art_books}/>
+            <GenreSection genre="기타" books={etc_books} />
         </main>
     )
 }

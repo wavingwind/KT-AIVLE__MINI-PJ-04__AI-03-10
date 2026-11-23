@@ -9,6 +9,7 @@ import Button from './components/Button'
 import Input from './components/Input'
 
 import BookDetailPage from "./pages/BookDetailPage"
+import BookCreatePage from "./pages/BookCreatePage";
 
 
 function App() {
@@ -143,6 +144,10 @@ function App() {
               <h1>도서 수정 페이지</h1>
             </main>
           }
+        />
+        <Route 
+          path="/books/new" 
+          element={<BookCreatePage onCreateBook={handleAddBook} />}
         />
       </Routes>
 
