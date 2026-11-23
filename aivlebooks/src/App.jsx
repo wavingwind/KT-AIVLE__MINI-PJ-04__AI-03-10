@@ -22,11 +22,10 @@ function App() {
           const books = await res.json();
 
           setBookList(books)
-          setLoading(false)
         } catch(err) {
           console.error(err)
           setError("useEffect loadPosts")
-        }  finally {
+        } finally {
           setLoading(false)
         }
       }
@@ -59,15 +58,14 @@ function App() {
         body: JSON.stringify(modify)})
       const updated = await res.json()
 
-       setBookList(prev => prev.map(book => (book.id === id ? updated : book)))
-
+      setBookList(prev => prev.map(book => (book.id === id ? updated : book)))
     } catch(err) {
       console.error(err)
       alert("Fail Modify Book")
     }
   }
 
-  const handleViewDatails = async(id) => {
+  const handleViewDetails = async(id) => {
     try {
       const res = await fetch(`http://localhost:3000/books/${id}`)
       return await res.json()
