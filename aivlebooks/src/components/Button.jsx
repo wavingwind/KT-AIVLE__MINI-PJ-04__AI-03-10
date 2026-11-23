@@ -1,6 +1,6 @@
 function Button({ icon = '❇️', children, onClick }) {
   return (
-    <button type="button" onClick={onClick}>
+    <button className="ui-button" type="button" onClick={onClick}>
       {icon} {children}
     </button>
   );

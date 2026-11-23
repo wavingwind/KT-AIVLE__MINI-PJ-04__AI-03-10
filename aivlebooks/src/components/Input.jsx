@@ -14,6 +14,10 @@ function Input({
 
       {multiline ? (
         <textarea
+<<<<<<< HEAD
+=======
+        className="ui-input"
+>>>>>>> origin/main
           id={id}
           name={id}
           value={value}
@@ -23,6 +27,10 @@ function Input({
         />
       ) : (
         <input
+<<<<<<< HEAD
+=======
+        className="ui-input"
+>>>>>>> origin/main
           id={id}
           name={id}
           type={type}

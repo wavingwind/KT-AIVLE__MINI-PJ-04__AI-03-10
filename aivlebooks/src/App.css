@@ -182,3 +182,20 @@
     border-right-color: var(--border);
   }
 }
+
+
+/* 입력창과 장르 선택창 */
+.ui-input,
+.ui-select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* 공용 버튼 */
+.ui-button {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
