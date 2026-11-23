@@ -65,7 +65,7 @@ function App() {
       })
       const updated = await res.json()
 
-      setBookList(prev => prev.map(book => (book.id === id ? updated : book)))
+      setBookList(prev => prev.map(book => (String(book.id) === String(id) ? updated : book)))
     } catch (err) {
       console.error(err)
       alert("Fail Modify Book")
@@ -92,7 +92,7 @@ function App() {
       await fetch(`http://localhost:3000/books/${id}`, {
         method: "DELETE"
       })
-      setBookList(book_list.filter((book) => book.id !== id))
+      setBookList(book_list.filter((book) => String(book.id) !== String(id)))
       navigate("/");
     } catch (err) {
       console.error(err)
