@@ -1,32 +1,46 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
+import { useState, useEffect } from 'react'
 import './App.css'
+
+import Header from "./components/Header"
+import Main from "./components/Main"
+import Footer from "./components/Footer"
 import Button from './components/Button'
 import Input from './components/Input'
 
-function App() {
-  const [title, setTitle] = useState('');
 
-  const handleSubmit = () => {
-    console.log('입력된 책 제목:', title);
-    alert(`책 제목: ${title}`);
-  };
+function App() {
+  const [count, setCount] = useState(0)
+  const [book_list, setBookList] = useState([])
+
+  
+    useEffect(() => {
+      async function loadPosts() {
+          try{
+            const res = await fetch("http://localhost:3000/books");
+            const books = await res.json();
+
+            setBookList(books)
+          } catch(err) {
+            console.error(err)
+            setError("useEffect loadPosts")
+          }
+        }
+
+      loadPosts()
+      }
+      , []
+    )
 
   return (
-    <div style={{ padding: '20px' }}>
-      <Input
-        label="책 제목: "
-        id="title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="제목을 입력하세요"
-      />
-
-      <Button onClick={handleSubmit}>등록하기</Button>
-    </div>
-  );
+    <>
+      <Header />
+      <h1 className="inverse-surface">가나다라</h1>
+      <Button />
+      <Input />
+      <Main book_list={book_list}/>
+      <Footer />
+    </>
+  )
 }
 
 export default App;
