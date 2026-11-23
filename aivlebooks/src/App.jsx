@@ -1,8 +1,5 @@
 import { useState, useEffect } from 'react'
-<<<<<<< HEAD
-=======
 import { Routes, Route } from "react-router";
->>>>>>> origin/main
 import './App.css'
 
 import Header from "./components/Header"
@@ -11,36 +8,14 @@ import Footer from "./components/Footer"
 import Button from './components/Button'
 import Input from './components/Input'
 
-<<<<<<< HEAD
-=======
 import BookDetailPage from "./pages/BookDetailPage"
+import BookCreatePage from "./pages/BookCreatePage";
 
->>>>>>> origin/main
 
 function App() {
   const [count, setCount] = useState(0)
   const [book_list, setBookList] = useState([])
 
-<<<<<<< HEAD
-  
-    useEffect(() => {
-      async function loadPosts() {
-          try{
-            const res = await fetch("http://localhost:3000/books");
-            const books = await res.json();
-
-            setBookList(books)
-          } catch(err) {
-            console.error(err)
-            setError("useEffect loadPosts")
-          }
-        }
-
-      loadPosts()
-      }
-      , []
-    )
-=======
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
 
@@ -118,17 +93,10 @@ function App() {
     }
   }
 
->>>>>>> origin/main
 
   return (
     <>
       <Header />
-<<<<<<< HEAD
-      <h1 className="inverse-surface">가나다라</h1>
-      <Button />
-      <Input />
-      <Main book_list={book_list}/>
-=======
 
       <Routes>
         <Route
@@ -170,13 +138,16 @@ function App() {
             </main>
           }
         />
+        <Route 
+          path="/books/new" 
+          element={<BookCreatePage onCreateBook={handleAddBook} />}
+        />
       </Routes>
 
->>>>>>> origin/main
       <Footer />
     </>
   );
 
 }
 
-export default App;
+export default App
