@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import SelectButton from '../components/SelectButton';
@@ -6,6 +7,13 @@ import SelectButton from '../components/SelectButton';
 const BOOK_CATEGORIES = ['장르선택', '소설', '과학', '인문', '역사', '예술', '기타'];
 
 function BookCreatePage({ onCreateBook }) {
+  const location = useLocation();
+  const navigate = useNavigate();
+  
+  // 상세페이지에서 book 데이터 받은 게 있으면 수정 모드를 띄움
+  const editBook = location.state?.book;
+  const isEditMode = Boolean(editBook);
+
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [category, setCategory] = useState(BOOK_CATEGORIES[0]);
@@ -14,6 +22,10 @@ function BookCreatePage({ onCreateBook }) {
   const [coverOption, setCoverOption] = useState('표지 생성 안함');
 
   const handleCancel = () => {
+    if (isEditMode) {
+      navigate(`/books/${editBook.id}`); // 수정 중 취소하면 다시 상세페이지로
+      return;
+    }
     setTitle('');
     setAuthor('');
     setContent('');
@@ -31,28 +43,41 @@ function BookCreatePage({ onCreateBook }) {
     }
 
     try {
-      await onCreateBook({
-        title,
-        author,
-        category,
-        content,
-      });
-
-      alert('새 도서가 db.json에 저장되었습니다!');
-      // 저장 후 입력칸 초기화
-      setTitle('');
-      setAuthor('');
-      setContent('');
-      setCategory('BOOK_CATEGORIES[0]')
+      if (isEditMode) {
+        // 수정 모드일 때 PATCH 호출하고 상세페이지로 이동
+        await onModifyBook(editBook.id, {
+          title,
+          author,
+          category,
+          content,
+        });
+        alert('도서 정보가 수정되었습니다!');
+        navigate(`/books/${editBook.id}`);
+      } else {
+        // 신규 등록 모드일 때 POST 호출
+        await onCreateBook({
+          title,
+          author,
+          category,
+          content,
+        });
+        alert('새 도서가 db.json에 저장되었습니다!');
+        setTitle('');
+        setAuthor('');
+        setContent('');
+        setCategory(BOOK_CATEGORIES[0]);
+      }
     } catch (error) {
       console.error(error);
-      alert('도서 등록 중 오류가 발생했습니다.');
+      alert(isEditMode ? '도서 수정 중 오류가 발생했습니다.' : '도서 등록 중 오류가 발생했습니다.');
     }
   };
 
   return (
     <div className="w-full max-w-4xl mx-auto mt-10 px-4">
-      <h1 className="text-2xl font-bold text-center mb-6">새 도서 등록</h1>
+      <h1 className="text-2xl font-bold text-center mb-6">
+        {isEditMode ? '도서 정보 수정' : '새 도서 등록'}
+      </h1>
 
       <div className="p-8 border border-gray-300 rounded-lg shadow-sm bg-white">
         <div className="flex flex-col gap-4">
@@ -113,8 +138,8 @@ function BookCreatePage({ onCreateBook }) {
 
           <div className="flex justify-end items-center gap-3 mt-2">
             <Button onClick={handleCancel}>취소</Button>
-            <Button onClick={handleSubmit}>저장 및 생성</Button>
-            <Button>목록</Button>
+            <Button onClick={handleSubmit}>{isEditMode ? '수정 완료' : '저장 및 생성'}</Button>
+            <Button onClick={() => navigate('/')}>목록</Button>
           </div>
         </div>
       </div>
