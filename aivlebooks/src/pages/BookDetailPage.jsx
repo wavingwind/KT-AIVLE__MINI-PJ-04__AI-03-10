@@ -128,7 +128,7 @@ function BookDetailPage() {
 
                 {/* 수정, 삭제, 목록 버튼 */}
                 <div style={{ display: "flex", gap: "12px" }}>
-                {/* 수정버튼은 BookEditPage랑 연결 */}
+                {/* 수정버튼은 BookEditPage랑 연결되게 */}
                 <Button icon="✏️" onClick={() => navigate(`/books/${id}/edit`)}>
                     수정하기
                 </Button>
