@@ -12,6 +12,8 @@ function App() {
   const [count, setCount] = useState(0)
   const [book_list, setBookList] = useState([])
 
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState("")
   
   useEffect(() => {
     async function loadPosts() {
@@ -20,9 +22,12 @@ function App() {
           const books = await res.json();
 
           setBookList(books)
+          setLoading(false)
         } catch(err) {
           console.error(err)
           setError("useEffect loadPosts")
+        }  finally {
+          setLoading(false)
         }
       }
 
@@ -32,7 +37,18 @@ function App() {
   )
 
   const handleAddBook = async (newBook) => {
+    try {
+      const res = await fetch("http://localhost:3000/books", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"}, 
+        body: JSON.stringify(newBook)})
+      const saved = await res.json()
 
+      setBookList([...book_list, saved])
+    } catch(err) {
+      console.error(err)
+      alert("Fail Add Book")
+    }
   }
 
   const handleModifyBook = async(id) => {
@@ -46,6 +62,24 @@ function App() {
   const handleDeleteBook = async(id) => {
     
   }
+
+  if (loading) {
+    return (
+      <>
+        <Header />
+        <p>불러오는 중...</p>
+      </>
+    )
+  }
+
+  if (error) {
+    return (
+      <>
+        <Header />
+        <p>에러: {error}</p>
+      </>
+    )
+  };
 
   return (
     <>
