@@ -14,6 +14,7 @@ function Input({
 
       {multiline ? (
         <textarea
+        className="ui-input"
           id={id}
           name={id}
           value={value}
@@ -23,6 +24,7 @@ function Input({
         />
       ) : (
         <input
+        className="ui-input"
           id={id}
           name={id}
           type={type}
