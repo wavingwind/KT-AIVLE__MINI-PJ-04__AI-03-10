@@ -8,6 +8,8 @@ import Footer from "./components/Footer"
 import Button from './components/Button'
 import Input from './components/Input'
 
+import BookDetailPage from "./pages/BookDetailPage"
+
 
 function App() {
   const [count, setCount] = useState(0)
@@ -124,11 +126,7 @@ function App() {
 
         <Route
           path="/books/:id"
-          element={
-            <main>
-              <h1>도서 상세 페이지</h1>
-            </main>
-          }
+          element={<BookDetailPage />}
         />
 
         <Route
