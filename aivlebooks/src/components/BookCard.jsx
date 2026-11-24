@@ -8,7 +8,7 @@ function BookCard({ book }) {
         >
             <article
                 className="
-                    group relative z-0 aspect-[1.85/1] w-full
+                    group relative z-0 aspect-[2/3] w-full
                     origin-center cursor-pointer bg-[#292929]
                     text-white transition-transform duration-300
                     ease-out hover:z-30 hover:scale-[1.12]
