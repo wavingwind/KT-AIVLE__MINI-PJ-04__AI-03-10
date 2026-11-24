@@ -56,7 +56,7 @@ KT-AIVLE__MINI-PJ-04__AI-03-10/
         │   ├── BookCreatePage.jsx  # 신규 도서 등록 페이지
         │   ├── BookDetailPage.jsx  # 도서 상세 조회, 삭제 및 AI 표지 생성 페이지
         │   ├── BookEditPage.jsx    # 도서 정보 수정 페이지
-        │   ├── MyPage.jsx          # 마이페이지 (찜/관심 도서 조회)
+        │   ├── MyPage.jsx          # 마이페이지 (선호작 조회)
         │   └── Search.jsx          # 도서 검색 페이지
         ├── App.jsx                 # 전역 라우팅 및 상태 관리
         ├── App.css
