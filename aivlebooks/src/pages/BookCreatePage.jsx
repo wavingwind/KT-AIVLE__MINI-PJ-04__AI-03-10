@@ -49,7 +49,16 @@ function BookCreatePage({ onCreateBook, onModifyBook, editBook }) {
   const [coverOption, setCoverOption] = useState(keepCover);
   const [apiKey, setApiKey] = useState('');
   const [isLoading, setIsLoading] = useState(false); //사용자 편의성을 위한 로딩
+  const [showErrors, setShowErrors] = useState(false);
   const shouldGenerateCover = coverOption === generateCover;
+  const validationErrors = [
+    category === BOOK_CATEGORIES[0] && '장르를 선택해주세요.',
+    !author.trim() && '작가명을 입력해주세요.',
+    !title.trim() && '제목을 입력해주세요.',
+    !content.trim() && '내용을 입력해주세요.',
+    shouldGenerateCover && coverQuality === '품질선택' && '표지 품질을 선택해주세요.',
+    shouldGenerateCover && !apiKey.trim() && '표지를 생성하려면 OpenAI API Key를 입력해주세요.',
+  ].filter(Boolean);
 
   const handleCancel = () => {
     if (isEditMode) {
@@ -59,29 +68,18 @@ function BookCreatePage({ onCreateBook, onModifyBook, editBook }) {
     setTitle('');
     setAuthor('');
     setContent('');
+    setShowErrors(false);
   };
 
   const handleSubmit = async () => {
-    if (category === '장르선택') {
-      alert('장르를 선택해주세요');
+    if (isLoading) return;
+
+    if (validationErrors.length > 0) {
+      setShowErrors(true);
       return;
     }
 
-    if (!title.trim() || !author.trim() || !content.trim()) {
-      alert('제목, 작가명, 내용을 모두 입력해주세요.');
-      return;
-    }
-
-    if (shouldGenerateCover) {
-      if (coverQuality === '품질선택') { 
-        alert('표지 품질을 선택해주세요.');
-        return;
-      }
-      if (!apiKey.trim()) {
-        alert('표지를 생성하려면 OpenAI API Key를 입력해주세요.');
-        return;
-      }
-    }
+    setShowErrors(false);
 
     try {
       setIsLoading(true);
@@ -223,6 +221,14 @@ function BookCreatePage({ onCreateBook, onModifyBook, editBook }) {
                     />
             </div>
           </div>
+
+          {showErrors && validationErrors.length > 0 && (
+            <div role="alert" className="mt-3 text-sm text-red-700">
+              <ul className="list-disc space-y-1 pl-5">
+                {validationErrors.map((message) => <li key={message}>{message}</li>)}
+              </ul>
+            </div>
+          )}
 
           <div className= {styles.buttonGroup}>
                 <Button onClick={handleCancel} disabled={isLoading}>취소</Button>  {/* 각 버튼 이미지 생성 로딩시 버튼 비활성화를 위해 disabled추가*/}

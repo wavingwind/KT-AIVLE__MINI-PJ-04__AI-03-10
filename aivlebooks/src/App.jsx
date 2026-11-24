@@ -43,10 +43,11 @@ function App() {
 
   const handleAddBook = async (newBook) => {
     try {
+      const now = new Date().toISOString();
       const res = await fetch("http://localhost:3000/books", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newBook)
+        body: JSON.stringify({ ...newBook, createdAt: now, updatedAt: now })
       })
       const saved = await res.json()
 
@@ -63,7 +64,7 @@ function App() {
       const res = await fetch(`http://localhost:3000/books/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(modify)
+        body: JSON.stringify({ ...modify, updatedAt: new Date().toISOString() })
       })
       const updated = await res.json()
 
