@@ -45,6 +45,8 @@
 | **MyPage** |  |  | 남도현 |
 | **Search** |  |  | 서승준 |
 
+## 4-2. db.json
+
 | **기능** | **Method** | **Endpoint** | **요청 데이터 (Body) / 비고** |
 | --- | --- | --- | --- |
 | **메인 페이지 (기존 도서 목록 조회)** | `GET` | `/books` | 전체 도서 배열 반환 (`db.json`) 후 프론트에서 `category`별 그룹핑 렌더링 |
@@ -53,7 +55,7 @@
 | **도서 수정** | `PATCH` | `/books/{id}` | `{ title, author, category, content, updatedAt }` |
 | **도서 삭제** | `DELETE` | `/books/{id}` | 없음 |
 | **AI 표지 이미지 생성** | `POST` | `/cover-gen` | `{ model: “gpt-image-…, prompt, … }` |
-| **좋아요 상태 변경** | `PATCH` | `/books/{id}` | `{ isLiked: boolean }` |
+| **선호작** | `PATCH` | `/books/{id}` |  |
 
 <br/>
 
