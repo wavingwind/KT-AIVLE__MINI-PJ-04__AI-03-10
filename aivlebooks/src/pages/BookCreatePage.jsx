@@ -44,7 +44,8 @@ function BookCreatePage({ onCreateBook, onModifyBook, editBook }) {
   const [author, setAuthor] = useState(editBook?.author || '');
   const [category, setCategory] = useState(editBook?.category || BOOK_CATEGORIES[0]);
   const [content, setContent] = useState(editBook?.content || '');
-  const [coverImageUrl, setCoverImageUrl] = useState(editBook?.coverImageUrl || '');
+  const [originalCoverUrl] = useState(editBook?.coverImageUrl || '');
+  const [coverImageUrl, setCoverImageUrl] = useState(originalCoverUrl);
   const [coverQuality, setCoverQuality] = useState('품질선택');
   const [coverOption, setCoverOption] = useState(keepCover);
   const [apiKey, setApiKey] = useState('');
@@ -69,6 +70,13 @@ function BookCreatePage({ onCreateBook, onModifyBook, editBook }) {
     setAuthor('');
     setContent('');
     setShowErrors(false);
+  };
+
+  const handleRevertCover = () => {
+    setCoverImageUrl(originalCoverUrl);
+    setCoverOption(keepCover);
+    setCoverQuality('품질선택');
+    setApiKey('');
   };
 
   const handleSubmit = async () => {
@@ -219,6 +227,9 @@ function BookCreatePage({ onCreateBook, onModifyBook, editBook }) {
                     placeholder="키를 입력하세요."
                     disabled={!shouldGenerateCover || isLoading}
                     />
+                {isEditMode && coverImageUrl !== originalCoverUrl && (
+                  <Button onClick={handleRevertCover} disabled={isLoading}>표지 수정 취소</Button>
+                )}
             </div>
           </div>
 
