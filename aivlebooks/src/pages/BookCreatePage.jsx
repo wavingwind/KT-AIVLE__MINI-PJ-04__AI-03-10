@@ -231,11 +231,11 @@ function BookCreatePage({ onCreateBook, onModifyBook, editBook }) {
           )}
 
           <div className= {styles.buttonGroup}>
-                <Button onClick={handleCancel} disabled={isLoading}>취소</Button>  {/* 각 버튼 이미지 생성 로딩시 버튼 비활성화를 위해 disabled추가*/}
-            <Button onClick={handleSubmit} disabled={isLoading}>
+                <Button icon="cancel" onClick={handleCancel} disabled={isLoading}>취소</Button>  {/* 각 버튼 이미지 생성 로딩시 버튼 비활성화를 위해 disabled추가*/}
+            <Button icon="save" onClick={handleSubmit} disabled={isLoading}>
                 {isLoading ? loadingLabel : submitLabel}
                 </Button>
-            <Button onClick={() => navigate('/')} disabled={isLoading}>목록</Button>
+            <Button icon="list" onClick={() => navigate('/')} disabled={isLoading}>목록</Button>
           </div>
         </div>
       </div>
