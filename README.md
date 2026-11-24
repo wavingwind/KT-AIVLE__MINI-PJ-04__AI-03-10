@@ -23,16 +23,19 @@
 | **Footer** | 공통 레이아웃 | 하단 영역 (약관 같은 거 정적텍스트 하드코딩) | 양준원 |
 | **Main** |  | 여러개의 GenreSection를 따로따로 있게하지 말고 하나의 프레임에 담아놓음. |  |
 | **Button** | 공통 UI | 공용 액션 버튼 | 남건우 |
-| **SelectButton** | `BookForm` | 선택용 드롭다운 / 선택버튼 컴포넌트 | 남건우 |
-| **Input** | `BookForm`, `BookDetailPage` | 제목, 저자, 도서내용 등 입력 컴포넌트 | 남건우 |
+| **SelectButton** | `BookCreatePage`, `BookDetailPage` | 선택용 드롭다운 / 선택버튼 컴포넌트 | 남건우 |
+| **Input** | `BookCreatePage`, `BookDetailPage`, `Search` | 제목, 저자, 도서내용 등 입력 컴포넌트 | 남건우 |
 | **BookCard** | `GenreSection` | 표지, 카테고리, 제목 | 남도현 |
 | **GenreSection** | `BookListPage` (`/`) | `CategoryHeader` + `BookCard` 리스트 | 남도현 |
-| **BookForm** | `BookCreatePage`,
-`BookEditPage` | 도서 등록/수정 입력 폼. 유효성 검사용 형식. | CRUD |
 <br/>
 
 # 5. API 명세서 & db.json
-
+| **기능** | **Method** | **Endpoint** | **요청 데이터 (Body) / 비고** |
+| --- | --- | --- | --- |
+| **신규 도서 등록** | `POST` | `/books` | `{ title, author, category, content, coverImageUrl }` (생성된 객체 반환) |
+| **도서 수정** | `PATCH` | `/books/{id}` | `{ title, author, category, content, coverImageUrl }` |
+| **AI 표지 이미지 생성** | `POST` | `https://api.openai.com/v1/images/generations` | `{ model: "gpt-image-2", prompt, n: 1, size: "1024x1536", quality }` (`b64_json` → Data URL 변환) |
+<br/>
 ## 5-1. 페이지 컴포넌트
 
 | **페이지명** | **경로 (Route)** | **설명** | **담당자** |
@@ -41,7 +44,7 @@
 | **BookCreatePage** | `/books/new`  | 신규 도서 등록 페이지 (`POST /books` 연동) | CRUD |
 | **BookDetailPage** | `/books/:id` | 도서 상세 조회 페이지 (AI 표지 생성/재생성 `PATCH`, 도서 삭제 `DELETE`) | CRUD, 
 OpenAI 연동 |
-| **BookEditPage** | `/books/:id/edit` | 기존 도서 정보 수정 페이지 (기존 데이터 로드 및 `PATCH /books/:id`) | CRUD |
+| **BookEditPage** | `/books/:id/update` | 기존 도서 정보 수정 페이지 (기존 데이터 로드 및 `PATCH /books/:id`) | CRUD |
 <br/>
 
 | **기능** | **Method** | **Endpoint** | **요청 데이터 (Body) / 비고** |
@@ -102,3 +105,14 @@ DB에서 카테고리 가져와서 필터형식으로 가져와서 해당된 장
 도서 정보 추가 및 수정할 때 입력 형식 맞는지 검사.
 
 
+### 6-2-4. 새 도서 등록 페이지 (`BookCreatePage`)
+장르(`SelectButton`), 작가명, 제목, 내용(`textarea`)을 입력받아 신규 도서를 등록. <br/>
+표지 생성 옵션(`표지 생성 안함` / `표지 생성`)을 선택할 수 있으며, `표지 생성` 선택 시에만 품질(`low`, `medium`, `high`)과 OpenAI API Key 입력칸이 활성화됨. <br/>
+저장 시 유효성 검사(장르 선택 여부, 필수 텍스트 입력, API Key 및 품질 선택 여부)를 통과하면 AI 표지를 생성해 Data URL로 변환한 뒤 `db.json`에 저장하고 수정 페이지(`/books/:id/update`)로 이동. <br/>
+표지 생성 중에는 미리보기 영역에 로딩 스피너를 표시하고 모든 하단 버튼(`취소`, `저장 및 생성`, `목록`)을 비활성화(`disabled`)하여 중복 요청 방지.
+
+### 6-2-5. 도서 정보 수정 페이지 (`BookEditPage`)
+URL 파라미터(`id`)로 기존 도서 데이터를 불러와 장르, 작가명, 제목, 내용, 기존 표지 이미지를 입력칸과 미리보기 박스에 자동으로 채움. <br/>
+기본값은 `표지 유지` 상태로 기존 표지를 보존하며, `표지 재생성` 선택 시에만 품질과 OpenAI API Key 입력칸이 활성화되어 새 표지로 교체 가능. <br/>
+`재생성 및 수정` 클릭 시 수정된 도서 정보와 표지 URL을 `PATCH` 요청으로 반영하고, 재생성 완료 후 옵션과 API Key 입력 상태를 초기값(`표지 유지`)으로 복귀. <br/>
+`취소` 버튼 클릭 시 변경 사항을 저장하지 않고 해당 도서의 상세 페이지(`/books/:id`)로 이동.
