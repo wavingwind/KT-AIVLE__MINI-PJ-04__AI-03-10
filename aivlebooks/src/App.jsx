@@ -11,6 +11,7 @@ import Search from "./pages/Search";
 
 import BookDetailPage from "./pages/BookDetailPage"
 import BookCreatePage from "./pages/BookCreatePage";
+import MyPage from "./pages/MyPage"
 
 const userId = "test" //임시 id
 
@@ -134,7 +135,7 @@ function App() {
     try {
       if (existing) {
         // 이미 눌렀으면 → 취소
-        await fetch(`http://localhost:3000/likes_list/${existing.id}`, { method: "DELETE" })
+        const res = await fetch(`http://localhost:3000/likes_list/${existing.id}`, { method: "DELETE" })
          if (!res.ok) throw new Error(`좋아요 취소 실패 (${res.status})`)
         setLikesList((prev) => prev.filter((like) => like.id !== existing.id))
       } else {
