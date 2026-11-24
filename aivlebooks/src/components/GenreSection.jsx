@@ -20,11 +20,11 @@ function GenreSection({ genre, books = [] }) {
     if (books.length === 0) return null;
 
     return (
-        <section className="w-full py-4">
-            <div className="mx-auto w-full max-w-[1024px] px-4 lg:px-0">
+        <section className="w-full py-4 py-3">
+            <div className="mx-auto w-full max-w-[1024px] rounded-2xl border border-[#deded9] bg-white p-4 sm:p-6">
 
                 <div className="flex w-full items-center justify-between">
-                    <h2 className="mb-7 flex items-center gap-3 text-[24px] font-medium text-[#333]">
+                    <h2 className="mb-1 flex items-center gap-3 text-[24px] font-medium text-[#333]">
                         <span
                         aria-hidden="true"
                         className="h-5 w-1 rounded-full bg-[#20b2aa]"
@@ -35,9 +35,9 @@ function GenreSection({ genre, books = [] }) {
 
                 <div className="overflow-hidden">
                     <Swiper
-                        slidesPerView={1.15}
+                        slidesPerView={2.15}
                         slidesPerGroup={1}
-                        spaceBetween={2}
+                        spaceBetween={12}
                         speed={500}
                         watchOverflow={true}
                         grabCursor={true}
@@ -50,12 +50,12 @@ function GenreSection({ genre, books = [] }) {
                         onBreakpoint={updateNavigation}
                         breakpoints={{
                             640: {
-                                slidesPerView: 2.15,
-                                spaceBetween: 2
+                                slidesPerView: 3.3,
+                                spaceBetween: 12
                             },
                             1024: {
-                                slidesPerView: 3.2,
-                                spaceBetween: 2
+                                slidesPerView: 5.2,
+                                spaceBetween: 12
                             }
                         }}
                         className="!overflow-visible !py-5"

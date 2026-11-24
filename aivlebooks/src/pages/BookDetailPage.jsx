@@ -57,7 +57,7 @@ function BookDetailPage({onViewDetails, onDeleteBook, my_likes = [], onToggleLik
             <main style={{ padding: "40px", textAlign: "center" }}>
                 <p>에러: {error || "해당 도서를 찾을 수 없습니다."}</p>
                 {/* 목록 버튼은 일단 홈화면으로 보내게 해놨음. */}
-                <Button icon="📚" onClick={() => navigate("/")}>
+                <Button icon="list" onClick={() => navigate("/")}>
                     목록으로 돌아가기
                 </Button>
             </main>
@@ -108,13 +108,13 @@ function BookDetailPage({onViewDetails, onDeleteBook, my_likes = [], onToggleLik
 
                     {/* 좋아요, 수정, 삭제 */}
                     <div style={{ display: "flex", gap: "12px", justifyContent: "center" }}>
-                        <Button icon={isLiked ? "❤️" : "🤍"} disabled={busy} onClick={handleLikeClick}>
+                        <Button icon={isLiked ? 'heart-filled' : 'heart'} disabled={busy} onClick={handleLikeClick}>
                             {isLiked ? "좋아요 취소" : "좋아요"}
                         </Button>
-                        <Button icon="✏️" disabled={busy} onClick={() => navigate(`/books/${id}/update`)}>
+                        <Button icon="edit" disabled={busy} onClick={() => navigate(`/books/${id}/update`)}>
                             수정
                         </Button>
-                        <Button icon="🗑️" disabled={busy} onClick={handleDeleteClick}>
+                        <Button icon="delete" disabled={busy} onClick={handleDeleteClick}>
                             삭제
                         </Button>
                     </div>

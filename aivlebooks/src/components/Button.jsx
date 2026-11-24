@@ -5,10 +5,13 @@ const style =
   'focus:outline-none focus:ring-2 focus:ring-blue-500 ' +
   'disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed transition-colors';
 
-function Button({ icon = '❇️', children, onClick, ...props }) {
+function Button({ icon, children, onClick, ...props }) {
   return (
     <button className={style} type="button" onClick={onClick} {...props}>
-      {icon} {children} 
+      {icon && (
+        <img src={`/icons/${icon}.svg`} alt="" width="16" height="16" />
+      )}
+      {children}
     </button>
   );
 }

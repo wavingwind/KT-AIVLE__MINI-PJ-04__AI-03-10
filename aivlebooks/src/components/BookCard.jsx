@@ -4,71 +4,66 @@ function BookCard({ book }) {
     return (
         <Link
             to={`/books/${book.id}`}
-            className="block text-inherit no-underline"
+            className="group block w-full text-left text-inherit no-underline"
         >
-            <article
-                className="
-                    group relative z-0 aspect-[2/3] w-full
-                    origin-center cursor-pointer bg-[#292929]
-                    text-white transition-transform duration-300
-                    ease-out hover:z-30 hover:scale-[1.12]
-                "
-            >
-                <div className="absolute inset-0 overflow-hidden">
+            <article>
+                {/* 표지 영역 */}
+                <div
+                    className="
+                        relative aspect-[2/3] w-full overflow-hidden rounded-sm
+                        bg-[#f3f1ec] transition-transform duration-200
+                        group-hover:-translate-y-0.5
+                    "
+                >
                     {book.coverImageUrl ? (
                         <img
                             src={book.coverImageUrl}
-                            alt={book.title}
+                            alt={`${book.title} 표지`}
                             loading="lazy"
                             className="h-full w-full object-cover"
                         />
                     ) : (
-                        <div className="flex h-full w-full items-center justify-center bg-[#3b3b3b]">
-                            <span className="text-xl text-white/40">
-                                {book.title}
+                        <div className="flex h-full items-center justify-center">
+                            <span
+                                aria-hidden="true"
+                                className="absolute inset-y-0 left-2 w-px bg-[#d8d3c9]"
+                            />
+                            <span className="text-xs text-[#746e64]">
+                                표지 없음
                             </span>
                         </div>
                     )}
 
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+                    {/* 마우스를 올리거나 키보드로 선택하면 보이는 책 소개 */}
+                    {book.content && (
+                        <div
+                            className="
+                                absolute inset-0 flex flex-col justify-end
+                                bg-black/75 p-4 text-white opacity-0
+                                transition-opacity duration-200
+                                group-hover:opacity-100 group-focus-visible:opacity-100
+                            "
+                        >
+                            {book.category && (
+                                <p className="mb-2 text-xs text-white/80">
+                                    {book.category}
+                                </p>
+                            )}
+                            <p className="line-clamp-4 text-sm leading-relaxed">
+                                {book.content}
+                            </p>
+                        </div>
+                    )}
                 </div>
 
-                <div
-                    className="
-                        absolute inset-0 z-10 flex flex-col
-                        items-start justify-end p-6 text-left
-                        transition-opacity duration-200
-                        group-hover:opacity-0
-                    "
-                >
-                    <h4 className="line-clamp-2 text-[23px] font-medium leading-[1.45] tracking-[-0.035em]">
+                {/* 표지 아래에 항상 보이는 책 정보 */}
+                <div className="pt-3">
+                    <h4 className="line-clamp-2 text-base font-medium leading-snug text-[#292929]">
                         {book.title}
                     </h4>
-
-                    <p className="mt-3 text-[13px] font-light tracking-normal text-white/75">
-                        by {book.author}
-                    </p>
-                </div>
-
-                <div
-                    className="
-                        absolute inset-0 z-20 flex flex-col
-                        items-start justify-end bg-black/90
-                        px-8 pb-9 pt-8 text-left
-                        opacity-0 transition-opacity duration-300
-                        group-hover:opacity-100
-                        md:px-10
-                    "
-                >
-                    {book.category && (
-                        <p className="mb-6 text-[12px] font-medium text-white/80">
-                            {book.category}
-                        </p>
-                    )}
-
-                    {book.content && (
-                        <p className="line-clamp-4 w-full break-keep text-[14px] font-light leading-[1.8] tracking-[-0.02em] text-white">
-                            {book.content}
+                    {book.author && (
+                        <p className="mt-1 text-[13px] text-[#707070]">
+                            {book.author}
                         </p>
                     )}
                 </div>
