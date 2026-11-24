@@ -199,3 +199,26 @@
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
+.search-book-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.search-book-item {
+  min-width: 0;
+  width: calc((100% + 12px) / 2.15 - 12px);
+}
+
+@media (min-width: 640px) {
+  .search-book-item {
+    width: calc((100% + 12px) / 3.3 - 12px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .search-book-item {
+    width: calc((100% + 12px) / 5.2 - 12px);
+  }
+}
