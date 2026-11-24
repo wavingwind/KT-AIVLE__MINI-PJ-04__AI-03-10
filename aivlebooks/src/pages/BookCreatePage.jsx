@@ -46,6 +46,10 @@ function BookCreatePage({ onCreateBook }) {
   
 
   const handleCancel = () => {
+    if (isEditMode) {
+      navigate(`/books/${editBook.id}`); // 수정 중 취소하면 다시 상세페이지로
+      return;
+    }
     setTitle('');
     setAuthor('');
     setContent('');

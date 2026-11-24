@@ -7,6 +7,7 @@ import Main from "./components/Main"
 import Footer from "./components/Footer"
 import Button from './components/Button'
 import Input from './components/Input'
+import Search from "./pages/Search";
 
 import BookDetailPage from "./pages/BookDetailPage"
 import BookCreatePage from "./pages/BookCreatePage";
