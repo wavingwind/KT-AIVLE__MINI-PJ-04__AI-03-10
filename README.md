@@ -66,7 +66,7 @@ KT-AIVLE__MINI-PJ-04__AI-03-10/
 
 ---
 
-## 3. 컴포넌트 명세서 (업데이트)
+## 컴포넌트 명세서
 
 ### 공통 및 UI 컴포넌트 (`src/components/`)
 
@@ -95,7 +95,7 @@ KT-AIVLE__MINI-PJ-04__AI-03-10/
 
 ---
 
-## 4. API 명세서
+## API 명세서
 
 ### ① API 엔드포인트 명세서 (`json-server` & OpenAI API)
 - **로컬 Mock 서버 기본 주소:** `http://localhost:3000`
