@@ -29,7 +29,6 @@
 | **BookCard** | `GenreSection` | 표지, 카테고리, 제목 | 남도현 |
 | **GenreSection** | `BookListPage` (`/`) | `CategoryHeader` + `BookCard` 리스트 | 남도현 |
 | **BookForm** | `BookCreatePage`,
-`BookEditPage` | 도서 등록/수정 입력 폼. 유효성 검사용 형식. | CRUD |
 
 <br/>
 
