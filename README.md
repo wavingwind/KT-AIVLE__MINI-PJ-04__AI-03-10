@@ -37,7 +37,7 @@ KT-AIVLE__MINI-PJ-04__AI-03-10/
     ├── package.json
     ├── vite.config.js
     ├── public/
-    │   └── icons/                  # UI 아이콘 (좋아요, 수정, 삭제, 저장 등)
+    │   └── icons/                  # UI 아이콘 (선호작, 수정, 삭제, 저장 등)
     └── src/
         ├── api/
         │   ├── bookApi.js          # 도서 CRUD REST API 호출 모듈
