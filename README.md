@@ -72,15 +72,15 @@ KT-AIVLE__MINI-PJ-04__AI-03-10/
 
 | 컴포넌트명 | 사용 위치 | 설명 | 담당 역할 |
 | :--- | :--- | :--- | :--- |
-| **`Header`** | 공통 레이아웃 (전체 페이지) | 상단 네비게이션 (홈 이동 로고, 장르 카테고리 필터, 검색/마이페이지/도서 등록 이동 버튼) | UI · 레이아웃 담당 |
-| **`Footer`** | 공통 레이아웃 (전체 페이지) | 하단 고정 영역 (서비스 소개 및 저작권 정적 하드코딩) | UI · 레이아웃 담당 |
-| **`Main`** | 메인 목록 페이지 (`/`) | 전체 도서 데이터를 장르별로 그룹화하여 `GenreSection` 목록을 렌더링하는 컨테이너 | UI · 레이아웃 담당 |
+| **`Header`** | 공통 레이아웃 (전체 페이지) | 상단 네비게이션 (홈 이동 로고, 장르 카테고리 필터, 검색/마이페이지/도서 등록 이동 버튼) | 양준원 |
+| **`Footer`** | 공통 레이아웃 (전체 페이지) | 하단 고정 영역 (서비스 소개 및 저작권 정적 하드코딩) | 양준원 |
+| **`Main`** | 메인 목록 페이지 (`/`) | 전체 도서 데이터를 장르별로 그룹화하여 `GenreSection` 목록을 렌더링하는 컨테이너 | 양준원 |
 | **`GenreSection`** | `Main` 내부 | 장르(`category`)별 상단 헤더(장르명, 권수)와 `BookCard` 가로 리스트 섹션 묶음 | UI · 레이아웃 담당 |
-| **`BookCard`** | `GenreSection`, `Search`, `MyPage` | 도서 1권 요약 카드 (표지, 카테고리, 제목, 좋아요 상태 및 호버 시 줄거리 오버레이 / 클릭 시 상세 이동) | UI · 레이아웃 담당 |
-| **`BookForm`** | `BookCreatePage`, `BookEditPage` | 도서 등록·수정 공용 입력 폼 (`SelectButton`, `Input`, 줄거리 입력창 및 유효성 검사 포함) | CRUD 연동 담당 |
-| **`Button`** | 공통 UI (전체 페이지) | 등록, 수정, 삭제, AI 표지 생성 등 공용 액션 버튼 | UI · 레이아웃 담당 |
-| **`SelectButton`** | `BookForm` | 도서 장르(`category`) 선택용 버튼/드롭다운 컴포넌트 | OpenAI 연동 / 검토 담당 |
-| **`Input`** | `BookForm`, `BookDetailPage`, `Search` | 제목, 저자, 검색어, OpenAI API Key 등 공용 텍스트 입력 컴포넌트 | UI · 레이아웃 담당 |
+| **`BookCard`** | `GenreSection`, `Search`, `MyPage` | 도서 1권 요약 카드 (표지, 카테고리, 제목, 좋아요 상태 및 호버 시 줄거리 오버레이 / 클릭 시 상세 이동) | 양준원 |
+| **`BookForm`** | `BookCreatePage`, `BookEditPage` | 도서 등록·수정 공용 입력 폼 (`SelectButton`, `Input`, 줄거리 입력창 및 유효성 검사 포함) | 남도현 |
+| **`Button`** | 공통 UI (전체 페이지) | 등록, 수정, 삭제, AI 표지 생성 등 공용 액션 버튼 | 남건우 |
+| **`SelectButton`** | `BookForm` | 도서 장르(`category`) 선택용 버튼/드롭다운 컴포넌트 | 남건우 |
+| **`Input`** | `BookForm`, `BookDetailPage`, `Search` | 제목, 저자, 검색어, OpenAI API Key 등 공용 텍스트 입력 컴포넌트 | 남건우 |
 
 ### ② 페이지 컴포넌트 및 라우팅 (`src/pages/`)
 
