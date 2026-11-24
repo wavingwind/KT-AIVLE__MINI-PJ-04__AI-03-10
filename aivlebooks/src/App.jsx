@@ -136,6 +136,7 @@ function App() {
       if (existing) {
         // 이미 눌렀으면 → 취소
         await fetch(`http://localhost:3000/likes_list/${existing.id}`, { method: "DELETE" })
+         if (!res.ok) throw new Error(`좋아요 취소 실패 (${res.status})`)
         setLikesList((prev) => prev.filter((like) => like.id !== existing.id))
       } else {
         // 안 눌렀으면 → 추가
@@ -144,6 +145,7 @@ function App() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ userId, bookId, createdAt: new Date().toISOString() })
         })
+        if (!res.ok) throw new Error(`좋아요 추가 실패 (${res.status})`)
         const saved = await res.json()
         setLikesList((prev) => [...prev, saved])
       }

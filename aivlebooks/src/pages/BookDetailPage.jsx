@@ -11,6 +11,27 @@ function BookDetailPage({onViewDetails, onDeleteBook, my_likes = [], onToggleLik
     const [loading, setLoading] = useState(true); // 책 정보 로드중일때 대기화면
     const [error, setError] = useState("");
     const isLiked = my_likes.some((book) => String(book.id) === String(id)) //좋아요인지 확인
+    const [busy, setBusy] = useState(false) // 요청 중 버튼 잠금
+
+    // 좋아요
+    const handleLikeClick = async () => {
+        setBusy(true)
+        try {
+            await onToggleLike(id)
+        } finally {
+            setBusy(false)
+        }
+    }
+
+    // 삭제
+    const handleDeleteClick = async () => {
+        setBusy(true)
+        try {
+            await onDeleteBook(id)
+        } finally {
+            setBusy(false)
+        }
+    }
     
     useEffect(() => {
         async function load() {
@@ -87,13 +108,13 @@ function BookDetailPage({onViewDetails, onDeleteBook, my_likes = [], onToggleLik
 
                     {/* 좋아요, 수정, 삭제 */}
                     <div style={{ display: "flex", gap: "12px", justifyContent: "center" }}>
-                        <Button icon={isLiked ? "❤️" : "🤍"} onClick={() => onToggleLike(id)}>
+                        <Button icon={isLiked ? "❤️" : "🤍"} disabled={busy} onClick={handleLikeClick}>
                             {isLiked ? "좋아요 취소" : "좋아요"}
                         </Button>
-                        <Button icon="✏️" onClick={() => navigate(`/books/${id}/update`)}>
+                        <Button icon="✏️" disabled={busy} onClick={() => navigate(`/books/${id}/update`)}>
                             수정
                         </Button>
-                        <Button icon="🗑️" onClick={ () => onDeleteBook(id)}>
+                        <Button icon="🗑️" disabled={busy} onClick={handleDeleteClick}>
                             삭제
                         </Button>
                     </div>
