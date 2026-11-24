@@ -11,9 +11,9 @@
 | :--- | :--- | :--- |
 | **양준원** | 조장 / UI · 레이아웃 | 공통 레이아웃(Header, Footer), <br/> 메인 목록 화면(Main, GenreSection, BookCard), <br/> 장르별 가로 스크롤 및 호버 오버레이 |
 | **서승준** | 발표 · 문서 / 통합 테스트(QA) | 도서목록페이지, 검색페이지 |
-| **남도현** | CRUD 연동 | `json-server` 기반 REST API 연동(조회·등록·수정·삭제) |
-| **남건우** | OpenAI 연동 / 검토 | OpenAI Image API 연동 및 표지이미지 생성 기능, 선택 버튼 UI(SelectButton), 코드 리뷰 |
-| **이은수** | PM · 기획 | 도서 상세 페이지, `README.md` 작성 |
+| **남도현** | CRUD 연동 | `json-server` 기반 REST API 연동 (조회·등록·수정·삭제) |
+| **남건우** | OpenAI 연동 / 검토 | OpenAI Image API 연동 및 표지이미지 생성 기능, <br/> 선택 버튼 UI(SelectButton), 코드 리뷰 |
+| **이은수** | PM · 기획 | 도서 상세 페이지, <br/> `README.md` 작성 |
 
 ---
 
