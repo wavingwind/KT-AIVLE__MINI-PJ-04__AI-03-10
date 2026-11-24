@@ -5,7 +5,7 @@
 
 ---
 
-## 👥 팀원 및 역할 분담 (R&R)
+## 팀원 및 역할 분담 (R&R)
 
 | 이름 | 역할 | 주요 담당 업무 |
 | :--- | :--- | :--- |
@@ -17,7 +17,7 @@
 
 ---
 
-## 🛠️ 기술 스택 (Tech Stack)
+## 기술 스택 (Tech Stack)
 
 - **Frontend:** React (Vite), JavaScript (ES6+), CSS3
 - **Routing:** React Router (`react-router-dom`)
