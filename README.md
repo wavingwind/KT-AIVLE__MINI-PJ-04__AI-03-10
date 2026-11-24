@@ -66,6 +66,54 @@ KT-AIVLE__MINI-PJ-04__AI-03-10/
 
 ---
 
+## 3. 🧩 컴포넌트 명세서 (업데이트)
+
+### ① 공통 및 UI 컴포넌트 (`src/components/`)
+
+| 컴포넌트명 | 사용 위치 | 설명 | 담당 역할 |
+| :--- | :--- | :--- | :--- |
+| **`Header`** | 공통 레이아웃 (전체 페이지) | 상단 네비게이션 (홈 이동 로고, 장르 카테고리 필터, 검색/마이페이지/도서 등록 이동 버튼) | UI · 레이아웃 담당 |
+| **`Footer`** | 공통 레이아웃 (전체 페이지) | 하단 고정 영역 (서비스 소개 및 저작권 정적 하드코딩) | UI · 레이아웃 담당 |
+| **`Main`** | 메인 목록 페이지 (`/`) | 전체 도서 데이터를 장르별로 그룹화하여 `GenreSection` 목록을 렌더링하는 컨테이너 | UI · 레이아웃 담당 |
+| **`GenreSection`** | `Main` 내부 | 장르(`category`)별 상단 헤더(장르명, 권수)와 `BookCard` 가로 리스트 섹션 묶음 | UI · 레이아웃 담당 |
+| **`BookCard`** | `GenreSection`, `Search`, `MyPage` | 도서 1권 요약 카드 (표지, 카테고리, 제목, 좋아요 상태 및 호버 시 줄거리 오버레이 / 클릭 시 상세 이동) | UI · 레이아웃 담당 |
+| **`BookForm`** | `BookCreatePage`, `BookEditPage` | 도서 등록·수정 공용 입력 폼 (`SelectButton`, `Input`, 줄거리 입력창 및 유효성 검사 포함) | CRUD 연동 담당 |
+| **`Button`** | 공통 UI (전체 페이지) | 등록, 수정, 삭제, AI 표지 생성 등 공용 액션 버튼 | UI · 레이아웃 담당 |
+| **`SelectButton`** | `BookForm` | 도서 장르(`category`) 선택용 버튼/드롭다운 컴포넌트 | OpenAI 연동 / 검토 담당 |
+| **`Input`** | `BookForm`, `BookDetailPage`, `Search` | 제목, 저자, 검색어, OpenAI API Key 등 공용 텍스트 입력 컴포넌트 | UI · 레이아웃 담당 |
+
+### ② 페이지 컴포넌트 및 라우팅 (`src/pages/`)
+
+| 페이지명 | 경로 (Route) | 설명 | 담당 역할 |
+| :--- | :--- | :--- | :--- |
+| **`Main` (도서 목록)** | `/` | 메인 도서 목록 페이지 (전체 도서 조회 `GET /books` 및 장르별 섹션 렌더링) | UI · 레이아웃 담당 / 발표 담당 |
+| **`BookCreatePage`** | `/books/new` | 신규 도서 등록 페이지 (`BookForm` 기반 입력 및 `POST /books` 연동) | CRUD 연동 담당 |
+| **`BookDetailPage`** | `/books/:id` | 도서 상세 조회 페이지 (`GET /books/:id`, AI 표지 생성/재생성 `PATCH`, 도서 삭제 `DELETE`) | PM · 기획 / 서기 & OpenAI 연동 담당 |
+| **`BookEditPage`** | `/books/:id/edit` | 기존 도서 정보 수정 페이지 (기존 데이터 로드 및 `PATCH /books/:id` 반영) | CRUD 연동 담당 |
+| **`Search`** | `/search` | 키워드 기반 도서 검색 및 결과 카드 조회 페이지 | UI · 레이아웃 / 통합 테스트 |
+| **`MyPage`** | `/mypage` | 관심 도서(좋아요) 보관함 조회 페이지 | PM · 기획 / 서기 |
+
+---
+
+## 4. 🔌 API 명세서
+
+### ① API 엔드포인트 명세서 (`json-server` & OpenAI API)
+- **로컬 Mock 서버 기본 주소:** `http://localhost:3000`
+- **외부 AI 이미지 생성 주소:** `https://api.openai.com/v1/images/generations`
+
+| 기능 | 대상 서버 | Method | Endpoint | 요청 데이터 (Body) / 비고 |
+| :--- | :--- | :--- | :--- | :--- |
+| **전체 도서 목록 조회** | `json-server` | `GET` | `/books` | 전체 도서 배열 반환 후 프론트에서 `category`별 그룹핑 렌더링 |
+| **신규 도서 등록** | `json-server` | `POST` | `/books` | `{ title, author, category, content, coverImageUrl, isLiked, createdAt, updatedAt }` |
+| **도서 상세 정보 조회** | `json-server` | `GET` | `/books/:id` | 특정 `id`의 도서 객체 1건 반환 |
+| **도서 정보 수정** | `json-server` | `PATCH` | `/books/:id` | `{ title, author, category, content, updatedAt }` |
+| **도서 삭제** | `json-server` | `DELETE` | `/books/:id` | 특정 `id`의 도서 데이터 삭제 |
+| **AI 표지 이미지 생성** | OpenAI API | `POST` | `/v1/images/generations` | `{ model: "gpt-image-2", prompt, size: "1024x1536", output_format: "png" }` → `b64_json` 응답 |
+| **AI 표지 이미지 업데이트** | `json-server` | `PATCH` | `/books/:id` | `{ coverImageUrl: "data:image/png;base64,...", updatedAt }` (Data URL 변환 후 저장) |
+| **좋아요 상태 변경** | `json-server` | `PATCH` | `/books/:id` | `{ isLiked: boolean }` (관심 도서 토글 반영) |
+
+---
+
 ## 로컬 실행 방법
 
 프로젝트 실행을 위해 **Mock API 서버(`json-server`)**와 **프론트엔드 개발 서버(`Vite`)**를 각각 실행해야 합니다.
