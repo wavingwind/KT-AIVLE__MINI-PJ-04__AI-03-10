@@ -71,6 +71,12 @@ function Header(){
 
                         <span>도서 등록</span>
                     </Link>
+                    <Link
+                        to="/mypage"
+                        className="flex h-[40px] items-center px-2 text-[13px] font-medium text-[#555] hover:text-[#111]"
+                    >
+                        마이페이지
+                    </Link>
                 </nav>
             </div>
         </header>

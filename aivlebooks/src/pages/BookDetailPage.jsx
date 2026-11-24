@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import Button from "../components/Button";
 
-function BookDetailPage({onViewDetails, onDeleteBook}) {
+function BookDetailPage({onViewDetails, onDeleteBook, my_likes = [], onToggleLike}) {
     const { id } = useParams();
     const navigate = useNavigate();
 
@@ -10,7 +10,29 @@ function BookDetailPage({onViewDetails, onDeleteBook}) {
     const [book, setBook] = useState(null);
     const [loading, setLoading] = useState(true); // 책 정보 로드중일때 대기화면
     const [error, setError] = useState("");
+    const isLiked = my_likes.some((book) => String(book.id) === String(id)) //좋아요인지 확인
+    const [busy, setBusy] = useState(false) // 요청 중 버튼 잠금
 
+    // 좋아요
+    const handleLikeClick = async () => {
+        setBusy(true)
+        try {
+            await onToggleLike(id)
+        } finally {
+            setBusy(false)
+        }
+    }
+
+    // 삭제
+    const handleDeleteClick = async () => {
+        setBusy(true)
+        try {
+            await onDeleteBook(id)
+        } finally {
+            setBusy(false)
+        }
+    }
+    
     useEffect(() => {
         async function load() {
             setLoading(true)
@@ -44,7 +66,7 @@ function BookDetailPage({onViewDetails, onDeleteBook}) {
 
     return (
         <main style={{ maxWidth: "900px", margin: "40px auto", padding: "0 20px" }}>
-            <div style={{ display: "flex", gap: "40px", alignItems: "flex-start" }}>
+            <div style={{ display: "flex", gap: "40px", alignItems: "stretch" }}>
                 {/* 왼쪽에 표지이미지 영역 */}
                 <div style={{ flex: "0 0 300px" }}>
                     <img
@@ -61,7 +83,7 @@ function BookDetailPage({onViewDetails, onDeleteBook}) {
                 </div>
 
                 {/* 오른쪽에 상세정보 영역 */}
-                <div style={{ flex: 1 }}>
+                <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
                     <span style={{ color: "#666", fontSize: "14px" }}>{book.category}</span>
                     <h2 style={{ margin: "8px 0 12px", fontSize: "28px" }}>{book.title}</h2>
                     <p style={{ color: "#444", marginBottom: "8px" }}>
@@ -73,6 +95,7 @@ function BookDetailPage({onViewDetails, onDeleteBook}) {
 
                     <div
                         style={{
+                            flex: 1,
                             padding: "20px",
                             backgroundColor: "#f9f9f9",
                             borderRadius: "8px",
@@ -83,32 +106,17 @@ function BookDetailPage({onViewDetails, onDeleteBook}) {
                         {book.content}
                     </div>
 
-                    {/* 수정, 삭제, 목록 버튼 */}
-                    <div style={{ display: "flex", gap: "12px" }}>
-                        <Button icon="✏️" onClick={() => navigate("/books/new", { state: { book } })}>
-                            수정하기
+                    {/* 좋아요, 수정, 삭제 */}
+                    <div style={{ display: "flex", gap: "12px", justifyContent: "center" }}>
+                        <Button icon={isLiked ? "❤️" : "🤍"} disabled={busy} onClick={handleLikeClick}>
+                            {isLiked ? "좋아요 취소" : "좋아요"}
                         </Button>
-                        <Button icon="🗑️" onClick={ () => onDeleteBook(id)}>
-                            삭제하기
+                        <Button icon="✏️" disabled={busy} onClick={() => navigate(`/books/${id}/update`)}>
+                            수정
                         </Button>
-                        {/* 목록 버튼은 일단 홈화면으로 보내게 해놨음. */}
-                        <Button icon="📚" onClick={() => navigate("/")}>
-                            목록으로
+                        <Button icon="🗑️" disabled={busy} onClick={handleDeleteClick}>
+                            삭제
                         </Button>
-                    </div>
-
-                    {/* AI 표지 재생성 구역 */}
-                    <div
-                        style={{
-                            marginTop: "32px",
-                            paddingTop: "24px",
-                            borderTop: "1px solid #eee",
-                        }}
-                    >
-                        <h4>AI 도서 표지 재생성</h4>
-                        <p style={{ fontSize: "13px", color: "#777" }}>
-                            (추가예정)
-                        </p>
                     </div>
                 </div>
             </div>
