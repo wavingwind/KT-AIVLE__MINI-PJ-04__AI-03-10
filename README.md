@@ -66,9 +66,9 @@ KT-AIVLE__MINI-PJ-04__AI-03-10/
 
 ---
 
-## 3. 🧩 컴포넌트 명세서 (업데이트)
+## 3. 컴포넌트 명세서 (업데이트)
 
-### ① 공통 및 UI 컴포넌트 (`src/components/`)
+### 공통 및 UI 컴포넌트 (`src/components/`)
 
 | 컴포넌트명 | 사용 위치 | 설명 | 담당 역할 |
 | :--- | :--- | :--- | :--- |
@@ -82,7 +82,7 @@ KT-AIVLE__MINI-PJ-04__AI-03-10/
 | **`SelectButton`** | `BookForm` | 도서 장르(`category`) 선택용 버튼/드롭다운 컴포넌트 | 남건우 |
 | **`Input`** | `BookForm`, `BookDetailPage`, `Search` | 제목, 저자, 검색어, OpenAI API Key 등 공용 텍스트 입력 컴포넌트 | 남건우 |
 
-### ② 페이지 컴포넌트 및 라우팅 (`src/pages/`)
+### 페이지 컴포넌트 및 라우팅 (`src/pages/`)
 
 | 페이지명 | 경로 (Route) | 설명 | 담당 역할 |
 | :--- | :--- | :--- | :--- |
@@ -95,7 +95,7 @@ KT-AIVLE__MINI-PJ-04__AI-03-10/
 
 ---
 
-## 4. 🔌 API 명세서
+## 4. API 명세서
 
 ### ① API 엔드포인트 명세서 (`json-server` & OpenAI API)
 - **로컬 Mock 서버 기본 주소:** `http://localhost:3000`
