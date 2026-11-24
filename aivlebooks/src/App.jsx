@@ -10,6 +10,7 @@ import Input from './components/Input'
 
 import BookDetailPage from "./pages/BookDetailPage"
 import BookCreatePage from "./pages/BookCreatePage";
+import BookEditPage from './pages/BookEditPage';
 
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
       const saved = await res.json()
 
       setBookList([...book_list, saved])
+      return saved; // 생성된 책의 id 반환
     } catch (err) {
       console.error(err)
       alert("Fail Add Book")
@@ -139,15 +141,16 @@ function App() {
 
         <Route
           path="/books/:id/update"
-          element={
-            <main>
-              <h1>도서 수정 페이지</h1>
-            </main>
-          }
+          element={<BookEditPage onModifyBook={handleModifyBook} />}
         />
-        <Route 
-          path="/books/new" 
-          element={<BookCreatePage onCreateBook={handleAddBook} />}
+        <Route
+          path="/books/new"
+          element={
+          <BookCreatePage
+          onCreateBook={handleAddBook}
+          onUpdateBook={handleModifyBook}
+          />
+          }
         />
       </Routes>
 
