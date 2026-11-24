@@ -11,8 +11,6 @@ import Search from "./pages/Search";
 
 import BookDetailPage from "./pages/BookDetailPage"
 import BookCreatePage from "./pages/BookCreatePage";
-import BookEditPage from './pages/BookEditPage';
-import MyPage from "./pages/MyPage";
 
 const userId = "test" //임시 id
 
@@ -48,10 +46,11 @@ function App() {
 
   const handleAddBook = async (newBook) => {
     try {
+      const now = new Date().toISOString();
       const res = await fetch("http://localhost:3000/books", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newBook)
+        body: JSON.stringify({ ...newBook, createdAt: now, updatedAt: now })
       })
       const saved = await res.json()
 
@@ -68,7 +67,7 @@ function App() {
       const res = await fetch(`http://localhost:3000/books/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(modify)
+        body: JSON.stringify({ ...modify, updatedAt: new Date().toISOString() })
       })
       const updated = await res.json()
 
@@ -195,17 +194,27 @@ function App() {
                                    onToggleLike={handleToggleLike}/>}
         />
 
-        <Route
-          path="/books/:id/update"
-          element={<BookEditPage onModifyBook={handleModifyBook} />}
-        />
+        {book_list.map(book => (
+          <Route
+            key={book.id}
+            path={`/books/${book.id}/update`}
+            element={<BookCreatePage key={book.id} editBook={book} onModifyBook={handleModifyBook} />}
+          />
+        ))}
+
         <Route
           path="/books/new"
+          element={<BookCreatePage onCreateBook={handleAddBook} />}
+        />
+
+        <Route
+          path="/books/search"
           element={
-          <BookCreatePage
-          onCreateBook={handleAddBook}
-          onUpdateBook={handleModifyBook}
-          />
+            <Search
+              books={book_list}
+              loading={loading}
+              error={error}
+            />
           }
         />
         <Route 

@@ -11,7 +11,7 @@ function SelectButton({
   return (
     <div>
       <select
-        className = {style} 
+        className = "ui-select" 
         value={value} 
         onChange={(e) => onChange(e.target.value)}
         {...props}
