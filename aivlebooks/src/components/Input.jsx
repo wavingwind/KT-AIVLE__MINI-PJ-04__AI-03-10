@@ -16,7 +16,7 @@ return (
     <>
         {title && <label htmlFor={id}>{title}</label>}
         <Element
-            className={style}
+            className="ui-input"
             {...props}
         />
     </>

@@ -11,7 +11,6 @@ import Search from "./pages/Search";
 
 import BookDetailPage from "./pages/BookDetailPage"
 import BookCreatePage from "./pages/BookCreatePage";
-import BookEditPage from './pages/BookEditPage';
 
 
 function App() {
@@ -140,17 +139,27 @@ function App() {
           element={<BookDetailPage onViewDetails={handleViewDetails}  onDeleteBook={handleDeleteBook} />}
         />
 
-        <Route
-          path="/books/:id/update"
-          element={<BookEditPage onModifyBook={handleModifyBook} />}
-        />
+        {book_list.map(book => (
+          <Route
+            key={book.id}
+            path={`/books/${book.id}/update`}
+            element={<BookCreatePage key={book.id} editBook={book} onModifyBook={handleModifyBook} />}
+          />
+        ))}
+
         <Route
           path="/books/new"
+          element={<BookCreatePage onCreateBook={handleAddBook} />}
+        />
+
+        <Route
+          path="/books/search"
           element={
-          <BookCreatePage
-          onCreateBook={handleAddBook}
-          onUpdateBook={handleModifyBook}
-          />
+            <Search
+              books={book_list}
+              loading={loading}
+              error={error}
+            />
           }
         />
       </Routes>
