@@ -12,6 +12,7 @@ import Search from "./pages/Search";
 import BookDetailPage from "./pages/BookDetailPage"
 import BookCreatePage from "./pages/BookCreatePage";
 import BookEditPage from './pages/BookEditPage';
+import MyPage from "./pages/MyPage";
 
 
 function App() {
@@ -103,7 +104,7 @@ function App() {
     }
   }
 
-
+  
   return (
     <>
       <Header />
@@ -153,6 +154,9 @@ function App() {
           />
           }
         />
+        <Route 
+          path="/mypage" 
+          element={<MyPage book_list={book_list} />} />
       </Routes>
 
       <Footer />

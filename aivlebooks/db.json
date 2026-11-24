@@ -47,5 +47,17 @@
       "content": "asd",
       "id": 5
     }
-  ]
+  ],
+  "likes_list": [{
+    "id": 1,
+    "userId": "first",
+    "bookId": 5,
+    "createdAt": "2026-11-24T10:00:00Z"
+  },
+  {
+    "id": 2, 
+    "userId": "first", 
+    "bookId": 3, 
+    "createdAt": "2026-11-24T11:00:00Z"
+  }]
 }
