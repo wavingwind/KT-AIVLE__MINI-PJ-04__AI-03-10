@@ -24,7 +24,11 @@ function GenreSection({ genre, books = [] }) {
             <div className="mx-auto w-full max-w-[1024px] px-4 lg:px-0">
 
                 <div className="flex w-full items-center justify-between">
-                    <h2 className="mb-7 text-left text-[25px] font-normal leading-[1.45] tracking-[-0.035em] text-[#333]">
+                    <h2 className="mb-7 flex items-center gap-3 text-[24px] font-medium text-[#333]">
+                        <span
+                        aria-hidden="true"
+                        className="h-5 w-1 rounded-full bg-[#20b2aa]"
+                        />
                         {genre}
                     </h2>
                 </div>
