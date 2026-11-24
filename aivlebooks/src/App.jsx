@@ -12,14 +12,17 @@ import Search from "./pages/Search";
 import BookDetailPage from "./pages/BookDetailPage"
 import BookCreatePage from "./pages/BookCreatePage";
 
+const userId = "test" //임시 id
 
 function App() {
   const [count, setCount] = useState(0)
   const [book_list, setBookList] = useState([])
+  const [likes_list, setLikesList] = useState([]) //my_page에서 추가
   
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
+
 
   useEffect(() => {
     async function loadPosts() {
@@ -103,7 +106,55 @@ function App() {
     }
   }
 
+  //likes_list 테이블 가져오기
+  useEffect(() => {
+      async function loadLikes() {
+          try {
+              const res = await fetch(`http://localhost:3000/likes_list?userId=${userId}`);
+              const likes = await res.json();
 
+              setLikesList(likes)
+          } catch (err) {
+              console.error(err)
+          }
+      }
+
+      loadLikes()
+  }
+      , []
+  )
+
+  const likedIds = likes_list.map((like) => String(like.bookId))     //my_page에서 추가
+  const my_likes = book_list.filter((book) => likedIds.includes(String(book.id)))
+
+  //좋아요 토글
+  const handleToggleLike = async (bookId) => {
+    const existing = likes_list.find((like) => String(like.bookId) === String(bookId))
+
+    try {
+      if (existing) {
+        // 이미 눌렀으면 → 취소
+        await fetch(`http://localhost:3000/likes_list/${existing.id}`, { method: "DELETE" })
+         if (!res.ok) throw new Error(`좋아요 취소 실패 (${res.status})`)
+        setLikesList((prev) => prev.filter((like) => like.id !== existing.id))
+      } else {
+        // 안 눌렀으면 → 추가
+        const res = await fetch("http://localhost:3000/likes_list", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId, bookId, createdAt: new Date().toISOString() })
+        })
+        if (!res.ok) throw new Error(`좋아요 추가 실패 (${res.status})`)
+        const saved = await res.json()
+        setLikesList((prev) => [...prev, saved])
+      }
+    } catch (err) {
+      console.error(err)
+      alert("Fail Toggle Like")
+    }
+  }
+
+  
   return (
     <>
       <Header />
@@ -137,7 +188,10 @@ function App() {
 
         <Route
           path="/books/:id"
-          element={<BookDetailPage onViewDetails={handleViewDetails}  onDeleteBook={handleDeleteBook} />}
+          element={<BookDetailPage onViewDetails={handleViewDetails}  
+                                   onDeleteBook={handleDeleteBook} 
+                                   my_likes={my_likes} 
+                                   onToggleLike={handleToggleLike}/>}
         />
 
         {book_list.map(book => (
@@ -163,6 +217,9 @@ function App() {
             />
           }
         />
+        <Route 
+          path="/mypage" 
+          element={<MyPage my_likes={my_likes}/>} />
       </Routes>
 
       <Footer />
