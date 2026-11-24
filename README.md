@@ -1,11 +1,11 @@
-# 📚 AIVLE BOOKS (도서 관리 및 AI 표지 생성 플랫폼)
+# AIVLE BOOKS (도서 관리 및 AI 표지 생성 플랫폼)
 
 > **KT AIVLE School AI트랙 03반 10조 — Mini Project 04**  
 > React + Vite 기반의 도서 관리(CRUD) 및 OpenAI 이미지 생성 API를 활용한 맞춤형 도서 표지 생성 웹 애플리케이션입니다.
 
 ---
 
-## 👥 팀원 및 역할 분담 (R&R)
+## 팀원 및 역할 분담 (R&R)
 
 | 이름 | 역할 | 주요 담당 업무 |
 | :--- | :--- | :--- |
@@ -17,7 +17,7 @@
 
 ---
 
-## 🛠️ 기술 스택 (Tech Stack)
+## 기술 스택 (Tech Stack)
 
 - **Frontend:** React (Vite), JavaScript (ES6+), CSS3
 - **Routing:** React Router (`react-router-dom`)
