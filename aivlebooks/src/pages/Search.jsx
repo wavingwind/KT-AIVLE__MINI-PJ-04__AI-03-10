@@ -69,18 +69,9 @@ function Search({ books = [], loading = false, error = "" }) {
                     </p>
                 </div>
             ) : filteredBooks.length > 0 ? (
-                <div className="-m-1.5 flex flex-wrap">
+                <div className="search-book-list">
                     {filteredBooks.map((book) => (
-                        <div
-                            key={book.id}
-                            className="
-                relative min-w-0
-                w-full p-1.5
-                sm:w-1/2
-                md:w-1/3
-                hover:z-20
-            "
-                        >
+                        <div key={book.id} className="search-book-item">
                             <BookCard book={book} />
                         </div>
                     ))}
